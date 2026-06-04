@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  timescaledb:
+    image: timescale/timescaledb:latest-pg16
+    container_name: observatory_db
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - timescaledb_data:/var/lib/postgresql/data
+      - ./src/db/migrations:/docker-entrypoint-initdb.d  # Runs SQL on first start
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  qdrant:
+    image: qdrant/qdrant:v1.9.2
+    container_name: observatory_qdrant
+    ports:
+      - "6333:6333"
+      - "6334:6334"   # gRPC port — useful for high-throughput writes
+    volumes:
+      - qdrant_data:/qdrant/storage
+    restart: unless-stopped
+
+volumes:
+  timescaledb_data:
+  qdrant_data:
+
+# Why pin versions? latest images can change unexpectedly and break your setup.
+# Pinning Qdrant to v1.9.2 and TimescaleDB to latest-pg16 (which tracks the latest patch of PG16) gives you stability without manually managing minor patches.

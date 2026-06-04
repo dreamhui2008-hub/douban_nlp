@@ -144,7 +144,15 @@ douban-observatory/
 
 ### 2.2 Create and Activate a Virtual Environment
 
+Open Ubuntu first (if you don't have it, do `wsl --install`)
+
 ```bash
+# Inside Ubuntu (WSL terminal)
+sudo apt update
+sudo apt upgrade -y
+sudo apt install -y python3 python3-pip python3-venv python3-full build-essential
+
+# Create and activate venv
 python -m venv venv
 source venv/bin/activate          # Mac/Linux
 venv\Scripts\activate             # Windows
@@ -155,8 +163,13 @@ Always activate this before working. Your terminal prompt should show `(venv)`.
 ### 2.3 Create the Project Directory Structure
 
 ```bash
+
+# Folder setup
 mkdir -p douban-observatory/{notebooks,src/{client,db/{migrations},pipeline,training},models,data/raw}
 cd douban-observatory
+
+# Wheel setup (for dependencies)
+python -m pip install --upgrade pip setuptools wheel
 ```
 
 ### 2.4 Install Dependencies
