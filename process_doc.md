@@ -436,14 +436,14 @@ async def get_db():
 
 ### 3.6 Phase 1 Checklist
 
-- [ ] Docker Desktop installed and running
-- [ ] `docker-compose up -d` succeeds without errors
-- [ ] `docker-compose ps` shows both containers as `Up`
-- [ ] TimescaleDB extension confirmed present
-- [ ] Qdrant health endpoint returns 200
-- [ ] `src/db/connection.py` created
-- [ ] `.env` created and populated
-- [ ] `.gitignore` created
+- [x] Docker Desktop installed and running (as far as commands per above run well)
+- [x] `docker-compose up -d` succeeds without errors
+- [x] `docker-compose ps` shows both containers as `Up`
+- [x] TimescaleDB extension confirmed present
+- [x] Qdrant health endpoint returns 200
+- [x] `src/db/connection.py` created
+- [x] `.env` created and populated
+- [x] `.gitignore` created
 
 ---
 
